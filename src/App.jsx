@@ -32,22 +32,23 @@ function App() {
             const amount = getBudgetExpenses(budget.id).reduce((total, expense) => total + expense.amount, 0)
             return (
               <BudgetCard onAddExpenseClick={() => openAddExpenseModel(budget.id)}
-                     onViewExpenseClick={()=>setViewExpensesModalBudgetId(budget.id)}
-              key={budget.id} name={budget.name} amount={amount} max={budget.max}></BudgetCard>
+                onViewExpenseClick={() => setViewExpensesModalBudgetId(budget.id)}
+                key={budget.id} name={budget.name} amount={amount} max={budget.max}></BudgetCard>
             )
           })}
         </div>
+        <AddBudgetModel show={showAddBudgetModel} handleClose={() => setShowAddBudgetModel(false)} />
+        <AddExpenseModel defaultBudgetId={addExpenseModalBudgetId} show={showAddExpenseModel} handleClose={() => setShowAddExpenseModel(false)} />
+        <UnCatagrizedBudgetCard onAddExpenseClick={openAddExpenseModel}
+          onViewExpenseClick={() => setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)}
+        />
+        <TotalBudgetCard />
+        <ViewExpensesModal
+          budgetId={viewExpensesModalBudgetId}
+          handleClose={() => setViewExpensesModalBudgetId()}
+        />
       </Container>
-      <AddBudgetModel show={showAddBudgetModel} handleClose={() => setShowAddBudgetModel(false)} />
-      <AddExpenseModel defaultBudgetId={addExpenseModalBudgetId} show={showAddExpenseModel} handleClose={() => setShowAddExpenseModel(false)} />
-      <UnCatagrizedBudgetCard onAddExpenseClick={openAddExpenseModel} 
-      onViewExpenseClick={()=>setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)}
-      />
-      <TotalBudgetCard />
-      <ViewExpensesModal
-      budgetId={viewExpensesModalBudgetId}
-      handleClose={()=>setViewExpensesModalBudgetId()}
-      />
+
     </>)
 }
 
